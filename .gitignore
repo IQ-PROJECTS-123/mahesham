@@ -1,0 +1,20 @@
+﻿.vs/
+
+# Build results
+bin/
+obj/
+
+# NuGet packages
+packages/
+
+# User-specific files
+*.user
+*.suo
+
+# Other temp files
+*.cache
+*.log
+*.vsidx
+*.dll
+*.pdb
+node_modules/
