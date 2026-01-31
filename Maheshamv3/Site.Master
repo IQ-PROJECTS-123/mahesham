@@ -1,0 +1,231 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Maheshamv3.Site" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Mahesham Lodge - Rooms on Rent - HAJIPUR | 9555580458</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Yantramanav:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Bootstrap + Template Styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+
+        <!-- Topbar -->
+        <div class="container-fluid bg-secondary px-5 d-none d-lg-block">
+            <div class="row gx-0 align-items-center" style="height: 45px;">
+                <div class="col-lg-8 text-center text-lg-start mb-lg-0">
+                    <div class="d-flex flex-wrap">
+                        <a href="https://maps.app.goo.gl/uuRw78JodKbADHRHA" class="text-light me-4">
+                            <i class="fas fa-map-marker-alt text-primary me-2"></i>Find A Location
+                 </a>
+                        <a href="tel:+919555580458" class="text-light me-4">
+                            <i class="fas fa-phone-alt text-primary me-2"></i>+91 9555580458
+                 </a>
+                        <a href="mailto:info@mahesham.com" class="text-light me-0">
+                            <i class="fas fa-envelope text-primary me-2"></i>info@mahesham.com
+                 </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end">
+                    <div class="d-flex justify-content-end">
+                        <a href="#" class="btn text-primary border-end border-start py-1"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="btn text-primary border-end py-1"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="btn text-primary border-end py-1"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="btn text-primary border-end py-1"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="btn text-primary border-end py-1"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar -->
+        <div class="container-fluid position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 px-lg-5 py-3 py-lg-0">
+                <a href="Default.aspx" class="navbar-brand p-0">
+                    <img src="img/logo.jpg" alt="Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0">
+                        <a href="Default.aspx" class="nav-item nav-link active">Home</a>
+                        <a href="Default.aspx#about" class="nav-item nav-link">About</a>
+                        <a href="Default.aspx#Room" class="nav-item nav-link">Facility</a>
+                        <a href="Default.aspx#Gallery" class="nav-item nav-link">Gallery</a>
+                        <a href="event.html" class="nav-item nav-link">Memorial</a>
+                        <a href="Directions.aspx" class="nav-item nav-link">Direction</a>
+                    </div>
+
+                    <!-- Login / Logout -->
+                    <asp:Button ID="ButtonLoginLogout" runat="server" CssClass="btn btn-primary rounded-pill py-2 px-4 ms-2" OnClick="ButtonLoginLogout_Click" />
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+        </div>
+
+        <!-- Footer -->
+        <footer class="container-fluid footer bg-dark py-5 wow fadeIn">
+
+            <div class="container py-5">
+                <div class="row g-5">
+
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-brand mb-4">
+                            <h2 class="text-white fw-bold m-0">MAHESHAM<span class="text-primary"> LODGE</span></h2>
+                            <small class="text-secondary tracking-widest text-uppercase">Luxury Budget Stay</small>
+                        </div>
+                        <p class="text-light-muted mb-4 shadow-text">
+                            Stay Smart, Stay Budget-Friendly. Experience a different standard of living in the heart of Hajipur.
+                        </p>
+                        <div class="d-flex border-top border-secondary pt-4">
+                            <a class="btn btn-social btn-outline-light rounded-circle me-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-social btn-outline-light rounded-circle me-2" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-social btn-outline-light rounded-circle me-2" href="#"><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-social btn-outline-light rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <h4 class="text-white mb-4 position-relative pb-2 section-title">Get In Touch</h4>
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="icon-box bg-primary-soft rounded-3 p-3 me-3">
+                                <i class="bi bi-geo-alt-fill text-primary"></i>
+                            </div>
+                            <div class="text-light-muted">
+                                <p class="mb-0 fw-bold text-white">Location</p>
+                                <p class="mb-0 small">Bagmusa (North), Vaishali, Bihar</p>
+                                <p class="mb-0 small text-primary italic">Opp. Hajipur Junction (West)</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="icon-box bg-primary-soft rounded-3 p-3 me-3">
+                                <i class="bi bi-telephone-fill text-primary"></i>
+                            </div>
+                            <div class="text-light-muted">
+                                <p class="mb-0 fw-bold text-white">Call Us</p>
+                                <p class="mb-0 small">+91-95555 80458</p>
+                                <p class="mb-0 small">+91-98765 43210</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <h4 class="text-white mb-4 position-relative pb-2 section-title">Services</h4>
+                        <ul class="footer-links">
+                            <li><a href="Room-on-rent-in-hajipur.aspx">Rooms on rent in hajipur</a></li>
+                            <li><a href="Boys-Hostel-on-rent-in-Hajipur.aspx">Boys hostel on rent in hajipur</a></li>
+                            <li><a href="Lodge-in-hajipur.aspx">Lodge in hajipur</a></li>
+                            <li><a href="Best-Stay-In-Hajipur.aspx">Best Stay in hajipur</a></li>
+                            <li><a href="secure-room-on-rent-in-Hajipur.aspx">Secuare room on rent in hajipur</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <h4 class="text-white mb-4 position-relative pb-2 section-title">Newsletter
+                        </h4>
+
+                        <p class="text-light opacity-75 mb-4 small">
+                            Subscribe to get exclusive offers and local travel updates.
+                        </p>
+
+                        <div class="position-relative">
+                            <input
+                                type="email"
+                                class="form-control bg-transparent border-secondary text-white py-3 ps-4 pe-5 rounded-pill"
+                                placeholder="Enter your email">
+
+                            <button
+                                type="button"
+                                class="btn btn-primary position-absolute top-50 end-0 translate-middle-y me-2 px-4 rounded-pill">
+                                Send
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="container-fluid border-top border-secondary py-4 mt-5">
+                <div class="container text-center">
+                    <p class="mb-0 text-secondary small">&copy; 2025 <span class="text-white">Mahesham Lodge</span>. All Rights Reserved. Orbex Private Limited</p>
+                </div>
+            </div>
+        </footer>
+        <!-- Back to top -->
+        <a href="#"
+            class="btn btn-primary btn-lg rounded-circle position-fixed bottom-0 end-0 m-4 back-to-top">
+            <i class="fa fa-arrow-up"></i>
+        </a>
+
+
+    </form>
+
+    <!-- JS Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Template JS -->
+    <script src="js/main.js"></script>
+
+    <!-- Optional: Password Toggle JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var pwdInput = document.querySelector('.pwd-field');
+            var toggleBtn = document.getElementById("togglePwd");
+            var icon = document.getElementById("iconPwd");
+
+            if (pwdInput && toggleBtn && icon) {
+                toggleBtn.addEventListener("click", function () {
+                    if (pwdInput.type === "password") {
+                        pwdInput.type = "text";
+                        icon.classList.remove("bi-eye");
+                        icon.classList.add("bi-eye-slash");
+                    } else {
+                        pwdInput.type = "password";
+                        icon.classList.remove("bi-eye-slash");
+                        icon.classList.add("bi-eye");
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
