@@ -41,13 +41,17 @@ namespace Maheshamv3
 
         protected void _ButtonSubmit_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 976b0600d4677ab932bcd13353fd843c56e07b6c
             string paymentDate = _TextBoxStartDate.Text;
             string fileName = "";
 
             if (_FileUpload.HasFile)
             {
                 string ext = System.IO.Path.GetExtension(_FileUpload.FileName);
+<<<<<<< HEAD
                 fileName = Request.QueryString["ID"] + (string.IsNullOrEmpty(ext) ? ".jpg" : ext);
                 _FileUpload.SaveAs(Server.MapPath("~/Payment/" + fileName));
             }
@@ -97,6 +101,57 @@ namespace Maheshamv3
                 new SqlParameter("@CashAmount", cashAmount),
                 new SqlParameter("@ScanAmount", scanAmount),
                 new SqlParameter("@BankAmount", bankAmount),
+=======
+                fileName = Request.QueryString["ID"] + ext;
+                _FileUpload.SaveAs(Server.MapPath("~/Payment/" + fileName));
+            }
+
+            decimal totalAmount = Convert.ToDecimal(_LabelTotal.Text);
+            decimal paidAmount = Convert.ToDecimal(_TextBoxAmount.Text);
+            decimal dueAmount = totalAmount - paidAmount;
+
+            string payType = _DropDownListType.SelectedValue;
+
+            decimal cashPart = 0;
+            decimal upiPart = 0;
+
+            // ---- CASH ----
+            if (payType == "Cash")
+            {
+                cashPart = paidAmount;
+                upiPart = 0;
+                payType = "cash";
+            }
+
+            // ---- SCAN / BANK / UPI ----
+            else if (payType == "Scan" || payType == "Bank" || payType == "UPI")
+            {
+                cashPart = 0;
+                upiPart = paidAmount;
+                payType = "scan";
+            }
+
+            // ---- CASH + UPI ----
+            else if (payType == "Cash+UPI")
+            {
+                cashPart = Convert.ToDecimal(_txtCashAmount.Text);
+                upiPart = Convert.ToDecimal(_txtUpiAmount.Text);
+                paidAmount = cashPart + upiPart;
+                payType = "cash+upi";
+            }
+
+            // ---- UPDATE RENT TABLE ----
+            Utility.ExecuteQuery(@"UPDATE Rent SET PaidAmount = @PaidAmount,CashAmount = @CashAmount,UpiAmount = @UpiAmount,PaymentType = @PaymentType,PaymentFile = @PaymentFile,PaidOn = @PaidOn,Due = @Due,Status = 'Completed',Remarks = @Remarks WHERE ID = @ID",
+                false,
+                new SqlParameter("@PaidAmount", paidAmount),
+                new SqlParameter("@CashAmount", cashPart),
+                new SqlParameter("@UpiAmount", upiPart),
+                new SqlParameter("@PaymentType", payType),
+                new SqlParameter("@PaymentFile", fileName),
+                new SqlParameter("@PaidOn", Convert.ToDateTime(paymentDate).ToString("yyyy-MM-dd")),
+                new SqlParameter("@Due", dueAmount),
+                new SqlParameter("@Remarks", _TextBoxNote.Text),
+>>>>>>> 976b0600d4677ab932bcd13353fd843c56e07b6c
                 new SqlParameter("@ID", Request.QueryString["ID"])
             );
 
@@ -104,14 +159,19 @@ namespace Maheshamv3
             _ButtonNewReading.Visible = true;
             _LiteralMSG.Text = "<div class='p-3 mb-2 bg-success text-white'>Payment Submitted Successfully!</div>";
 
+<<<<<<< HEAD
             string emailBody = $@"
             <h3>Payment Details</h3>
+=======
+            string emailBody = $@"<h3>Payment Details</h3>
+>>>>>>> 976b0600d4677ab932bcd13353fd843c56e07b6c
             <table border='1' cellpadding='6' cellspacing='0' style='width:70%;font-family:Arial;font-size:14px;'>
                 <tr><td><b>Tenant</b></td><td>{_LabelName.Text}</td></tr>
                 <tr><td><b>Room</b></td><td>{_LabelRoom.Text}</td></tr>
                 <tr><td><b>Month</b></td><td>{_LabelMonth.Text}</td></tr>
                 <tr><td><b>Payment Date</b></td><td>{paymentDate}</td></tr>
                 <tr><td><b>Total</b></td><td>{_LabelTotal.Text}</td></tr>
+<<<<<<< HEAD
                 <tr><td><b>Paid</b></td><td>{paidAmount}</td></tr>
                 <tr><td><b>Previous Due</b></td><td>{ViewState["PrevDue"]}</td></tr>
                 <tr><td><b>Current Due</b></td><td>{dueAmount}</td></tr>
@@ -122,6 +182,18 @@ namespace Maheshamv3
             Utility._SendEmail("Shrikantkumar.info@gmail.com", "", "Payment Submitted", emailBody);
             Utility._SendEmail("rajnish5454kumar@gmail.com", "", "Payment Submitted", emailBody);
         }
+=======
+                <tr><td><b>Paid Amount</b></td><td>{paidAmount}</td></tr>
+                <tr><td><b>Previous Due</b></td><td>{ViewState["PrevDue"]}</td></tr>
+                <tr><td><b>Current Due</b></td><td>{dueAmount}</td></tr>
+                <tr><td><b>Payment Type</b></td><td>{_DropDownListType.SelectedValue}</td></tr>
+                <tr><td><b>Remarks</b></td><td>{_TextBoxNote.Text}</td></tr>
+            </table>";
+            Utility._SendEmail("Shrikantkumar.info@gmail.com", "", "Payment Submitted", emailBody);
+            //Utility._SendEmail("rajnish5454kumar@gmail.com", "", "Payment Submitted", emailBody);
+        }
+
+>>>>>>> 976b0600d4677ab932bcd13353fd843c56e07b6c
         protected void _DropDownListType_SelectedIndexChanged(object sender, EventArgs e)
         {
             CashDiv.Visible = _DropDownListType.SelectedValue == "Cash+UPI";
@@ -129,4 +201,7 @@ namespace Maheshamv3
         }
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 976b0600d4677ab932bcd13353fd843c56e07b6c

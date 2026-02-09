@@ -36,11 +36,19 @@
                                              <%#Container.DataItemIndex+1 %>
                                          </ItemTemplate>
                                      </asp:TemplateField>
+<<<<<<< HEAD
                                     <%-- <asp:TemplateField HeaderText="Photo">
                                          <ItemTemplate>
                                              <img src='/assets/Photo/abc.jpg' width="35" height="35" class="rounded-circle" />
                                          </ItemTemplate>
                                      </asp:TemplateField>--%>
+=======
+                                     <asp:TemplateField HeaderText="Photo">
+                                         <ItemTemplate>
+                                             <img src='/assets/Photo/abc.jpg' width="35" height="35" class="rounded-circle" />
+                                         </ItemTemplate>
+                                     </asp:TemplateField>
+>>>>>>> 976b0600d4677ab932bcd13353fd843c56e07b6c
                                      <asp:BoundField DataField="AmountType" HeaderText="Type" />  
                                      <asp:BoundField DataField="Name" HeaderText="Name" />
                                     <asp:BoundField DataField="rMonth" HeaderText="Month" />                                   
@@ -51,7 +59,10 @@
                                      <asp:BoundField DataField="MeterEnd" HeaderText="Meter End" />
                                      <asp:BoundField DataField="Maintenance" HeaderText="Maintenance" />
                                      <asp:BoundField DataField="Unit" HeaderText="Unit" />
+<<<<<<< HEAD
                                      <asp:BoundField DataField="eUnitCost" HeaderText="Unit Cost" />  
+=======
+>>>>>>> 976b0600d4677ab932bcd13353fd843c56e07b6c
                                      <asp:BoundField DataField="Bill" HeaderText="Bill" />
                                      <asp:BoundField DataField="TotalAmount" HeaderText="Total Amount" />
                                      <asp:BoundField DataField="PaidAmount" HeaderText="Paid" />

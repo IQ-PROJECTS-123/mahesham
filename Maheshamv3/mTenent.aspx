@@ -3,8 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
+<<<<<<< HEAD
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid contact py-5" style="background-color: white">
+=======
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" >
+    <div class="container-fluid contact py-5" style="background-color:white">
+>>>>>>> 976b0600d4677ab932bcd13353fd843c56e07b6c
         <div class="container py-5">
             <div class="pb-5">
                 <div class="bg-light rounded p-4 pb-0">
@@ -77,6 +82,7 @@
                                 <label>Meter Reading Start</label>
                             </div>
                         </div>
+<<<<<<< HEAD
                         <!-- Electric Unit Start -->
                         <div class="col-lg-6">
                             <div class="form-floating">
@@ -89,6 +95,9 @@
                                 <label>Electric Unit Start</label>
                             </div>
                         </div>
+=======
+
+>>>>>>> 976b0600d4677ab932bcd13353fd843c56e07b6c
                         <!-- Email -->
                         <div class="col-lg-6">
                             <div class="form-floating">

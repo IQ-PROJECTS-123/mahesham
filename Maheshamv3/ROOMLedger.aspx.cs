@@ -19,7 +19,11 @@ namespace Maheshamv3
         }
         protected void _Bind()
         {
+<<<<<<< HEAD
             Utility._BindGridView(GridView2, String.Format("select f.Building+' '+ f.Title+' '+f.Location as facility,t.Name,t.Mobile1, FORMAT(r.PeriodStart, 'dd/MM/yyyy') as PeriodStart,FORMAT(r.PeriodEnd, 'dd/MM/yyyy') as PeriodEnd, r.Amount,r.MeterStart,r.MeterEnd,r.eUnitCost, r.MeterEnd-r.MeterStart as Unit,(r.MeterEnd-r.MeterStart) * r.eUnitCost as Bill ,r.TotalAmount,r.Maintenance,r.PaidAmount,r.PaymentType, FORMAT(r.PaidOn, 'dd-MMM-yy') as PaidOn, r.due,r.ID,r.rMonth,r.AmountType from Rent r,Tenant t,facility f where r.Facility =f.ID and r.Tenant=t.ID and t.Active=1 and t. TenantType='Main Tenant' and r.rYear={0} and r.Facility={1}", _DropDownListYear.SelectedValue,_DropDownListFacility.SelectedValue));
+=======
+            Utility._BindGridView(GridView2, String.Format("select f.Building+' '+ f.Title+' '+f.Location as facility,t.Name,t.Mobile1, FORMAT(r.PeriodStart, 'dd/MM/yyyy') as PeriodStart,FORMAT(r.PeriodEnd, 'dd/MM/yyyy') as PeriodEnd, r.Amount,r.MeterStart,r.MeterEnd, r.MeterEnd-r.MeterStart as Unit,(r.MeterEnd-r.MeterStart)*7 as Bill ,r.TotalAmount,r.Maintenance,r.PaidAmount,r.PaymentType, FORMAT(r.PaidOn, 'dd-MMM-yy') as PaidOn, r.due,r.ID,r.rMonth,r.AmountType from Rent r,Tenant t,facility f where r.Facility =f.ID and r.Tenant=t.ID and t.Active=1 and t. TenantType='Main Tenant' and r.rYear={0} and r.Facility={1}", _DropDownListYear.SelectedValue,_DropDownListFacility.SelectedValue));
+>>>>>>> 976b0600d4677ab932bcd13353fd843c56e07b6c
 
         }
 
