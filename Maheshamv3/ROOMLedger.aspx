@@ -36,11 +36,11 @@
                                              <%#Container.DataItemIndex+1 %>
                                          </ItemTemplate>
                                      </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Photo">
+                                    <%-- <asp:TemplateField HeaderText="Photo">
                                          <ItemTemplate>
                                              <img src='/assets/Photo/abc.jpg' width="35" height="35" class="rounded-circle" />
                                          </ItemTemplate>
-                                     </asp:TemplateField>
+                                     </asp:TemplateField>--%>
                                      <asp:BoundField DataField="AmountType" HeaderText="Type" />  
                                      <asp:BoundField DataField="Name" HeaderText="Name" />
                                     <asp:BoundField DataField="rMonth" HeaderText="Month" />                                   
@@ -51,6 +51,7 @@
                                      <asp:BoundField DataField="MeterEnd" HeaderText="Meter End" />
                                      <asp:BoundField DataField="Maintenance" HeaderText="Maintenance" />
                                      <asp:BoundField DataField="Unit" HeaderText="Unit" />
+                                     <asp:BoundField DataField="eUnitCost" HeaderText="Unit Cost" />  
                                      <asp:BoundField DataField="Bill" HeaderText="Bill" />
                                      <asp:BoundField DataField="TotalAmount" HeaderText="Total Amount" />
                                      <asp:BoundField DataField="PaidAmount" HeaderText="Paid" />

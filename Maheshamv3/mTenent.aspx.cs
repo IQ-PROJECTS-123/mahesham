@@ -12,7 +12,6 @@ namespace Maheshamv3
             if (!IsPostBack)
             {
                 BindRooms();
-
                 string tenantId = Request.QueryString["ID"];
                 if (!string.IsNullOrEmpty(tenantId))
                     LoadTenantData(tenantId);
@@ -23,15 +22,17 @@ namespace Maheshamv3
         {
             string query = $"SELECT *, FORMAT(RentStart,'yyyy-MM-dd') AS StartOn FROM Tenant WHERE ID={tenantId}";
             DataTable dt = Utility._GetDataTable(query);
+
             if (dt.Rows.Count > 0)
             {
                 DataRow row = dt.Rows[0];
-                Utility._BindDropdown(_DropDownListFacility,"SELECT ID, Building+' '+Location+' - '+Title AS Title FROM Facility", "ID", "Title", false);
+
+                Utility._BindDropdown(_DropDownListFacility,"SELECT ID, Building+' '+Location+' - '+Title AS Title FROM Facility","ID", "Title", false);
                 _DropDownListType.SelectedValue = row["TenantType"].ToString();
                 _DropDownListFacility.SelectedValue = row["Facility"].ToString();
                 _TextName.Text = row["Name"].ToString();
                 _TextBoxEmail.Text = row["Email"].ToString();
-                _Textpass.Text = row["PWD"].ToString();    
+                _Textpass.Text = row["PWD"].ToString();
                 _TextBoxMobile1.Text = row["Mobile1"].ToString();
                 _TextBoxMobile2.Text = row["Mobile2"].ToString();
                 _TextBoxFather.Text = row["FatherName"].ToString();
@@ -43,7 +44,8 @@ namespace Maheshamv3
                 _TextBoxAmount.Text = row["MonthlyRent"].ToString();
                 _TextMaintenance.Text = row["Maintenance"].ToString();
                 _TextAdvPayment.Text = row["Advance"].ToString();
-                _TextBoxMeter.Text = row["MeterReadingStart"].ToString();
+                _TextBoxMeter.Text = row["MeterReadingStart"].ToString();   
+                _DropDownMeter.SelectedValue = row["eUnitCost"].ToString(); 
                 _TextBoxStartDate.Text = row["StartOn"].ToString();
             }
         }
@@ -56,11 +58,25 @@ namespace Maheshamv3
                 return;
             }
 
+            if (string.IsNullOrEmpty(_TextBoxMeter.Text))
+            {
+                ShowMessage("Please enter meter reading start.", false);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_DropDownMeter.SelectedValue))
+            {
+                ShowMessage("Please select electric unit cost.", false);
+                return;
+            }
 
             string tenantId = Request.QueryString["ID"];
+
             if (_DropDownListType.SelectedValue == "Main Tenant")
             {
-                string checkQuery = $@"SELECT * FROM Tenant WHERE Facility={_DropDownListFacility.SelectedValue}AND TenantType='Main Tenant' AND Active=1 {(string.IsNullOrEmpty(tenantId) ? "" : $"AND ID <> {tenantId}")}";
+                string checkQuery = $@"SELECT * FROM Tenant WHERE Facility={_DropDownListFacility.SelectedValue}AND TenantType='Main Tenant'AND Active=1
+                    {(string.IsNullOrEmpty(tenantId) ? "" : $"AND ID <> {tenantId}")}";
+
                 if (Utility._GetDataTable(checkQuery).Rows.Count > 0)
                 {
                     ShowMessage("Main Tenant already exists in this room.", false);
@@ -69,12 +85,12 @@ namespace Maheshamv3
             }
 
             string query = string.IsNullOrEmpty(tenantId)
-                ? @"INSERT INTO Tenant(MeterReadingStart, TenantType, Name, Mobile1, Mobile2, Email,PWD, Address, FatherName,HomeNumber, AadharNumber, PANNumber, VoterNumber, Facility, MonthlyRent, Maintenance,Advance, RentStart, Active)
-                   VALUES(@MeterReadingStart, @TenantType, @Name, @Mobile1, @Mobile2, @Email, @PWD, @Address, @FatherName,@HomeNumber, @AadharNumber, @PANNumber, @VoterNumber, @Facility, @MonthlyRent, @Maintenance,@Advance, @RentStart, 1)"
-                : @"UPDATE Tenant SET MeterReadingStart=@MeterReadingStart, TenantType=@TenantType, Name=@Name, Mobile1=@Mobile1,Mobile2=@Mobile2, Email=@Email,PWD=@PWD, Address=@Address, FatherName=@FatherName, HomeNumber=@HomeNumber,AadharNumber=@AadharNumber, PANNumber=@PANNumber, VoterNumber=@VoterNumber, Facility=@Facility,MonthlyRent=@MonthlyRent, Maintenance=@Maintenance, Advance=@Advance, RentStart=@RentStart WHERE ID=" + tenantId;
+                ? @"INSERT INTO Tenant(MeterReadingStart,eUnitCost,TenantType,Name,Mobile1,Mobile2,Email,PWD,Address,FatherName,HomeNumber,AadharNumber,PANNumber,VoterNumber,Facility,MonthlyRent,Maintenance,Advance,RentStart,Active)
+                VALUES(@MeterReadingStart,@eUnitCost,@TenantType,@Name,@Mobile1,@Mobile2,@Email,@PWD,@Address,@FatherName,@HomeNumber,@AadharNumber,@PANNumber,@VoterNumber,@Facility,@MonthlyRent,@Maintenance,@Advance,@RentStart,1)": @"UPDATE Tenant SET MeterReadingStart=@MeterReadingStart,eUnitCost=@eUnitCost,TenantType=@TenantType,Name=@Name,Mobile1=@Mobile1,Mobile2=@Mobile2,Email=@Email,PWD=@PWD,Address=@Address,FatherName=@FatherName,HomeNumber=@HomeNumber,AadharNumber=@AadharNumber,PANNumber=@PANNumber,VoterNumber=@VoterNumber,Facility=@Facility,MonthlyRent=@MonthlyRent,Maintenance=@Maintenance,Advance=@Advance,RentStart=@RentStart WHERE ID=" + tenantId;
 
             Utility.ExecuteQuery(query, false,
-                new SqlParameter("@MeterReadingStart", _TextBoxMeter.Text),
+                new SqlParameter("@MeterReadingStart", Convert.ToInt32(_TextBoxMeter.Text)),
+                new SqlParameter("@eUnitCost", Convert.ToInt32(_DropDownMeter.SelectedValue)),
                 new SqlParameter("@TenantType", _DropDownListType.SelectedValue),
                 new SqlParameter("@Name", _TextName.Text),
                 new SqlParameter("@Mobile1", _TextBoxMobile1.Text),
@@ -95,11 +111,11 @@ namespace Maheshamv3
             );
 
             ShowMessage("Tenant submitted successfully!", true);
-
             _ButtonSubmit.Visible = false;
             _ButtonDocVeri.Visible = true;
             _ButtonAddMore.Visible = true;
         }
+
         protected void _DropDownListType_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindRooms();
@@ -110,13 +126,14 @@ namespace Maheshamv3
             if (_DropDownListType.SelectedValue == "Partner Tenant" &&
                 !string.IsNullOrEmpty(_DropDownListFacility.SelectedValue))
             {
-                string query = $@"SELECT RentStart, MonthlyRent, Maintenance, MeterReadingStart FROM Tenant WHERE TenantType='Main Tenant' AND Facility={_DropDownListFacility.SelectedValue}";
+                string query = @"SELECT RentStart, MonthlyRent, Maintenance, MeterReadingStart, eUnitCost FROM Tenant WHERE TenantType='Main Tenant'AND Facility=" + _DropDownListFacility.SelectedValue;
                 DataTable dt = Utility._GetDataTable(query);
                 if (dt.Rows.Count > 0)
                 {
                     _TextBoxAmount.Text = dt.Rows[0]["MonthlyRent"].ToString();
                     _TextMaintenance.Text = dt.Rows[0]["Maintenance"].ToString();
                     _TextBoxMeter.Text = dt.Rows[0]["MeterReadingStart"].ToString();
+                    _DropDownMeter.SelectedValue = dt.Rows[0]["eUnitCost"].ToString();
                     _TextBoxStartDate.Text = Convert.ToDateTime(dt.Rows[0]["RentStart"]).ToString("yyyy-MM-dd");
                 }
             }
@@ -124,7 +141,7 @@ namespace Maheshamv3
 
         protected void BindRooms()
         {
-            string query =_DropDownListType.SelectedValue == "Main Tenant" ? @"SELECT ID, Building+' '+Location+' - '+Title AS Title FROM Facility WHERE NOT ID IN (SELECT Facility FROM Tenant WHERE Active=1 AND TenantType='Main Tenant')ORDER BY ID": @"SELECT DISTINCT f.ID, f.Building+' '+f.Location+' - '+f.Title AS Title FROM Facility f INNER JOIN Tenant t ON t.Facility=f.ID WHERE t.Active=1 AND t.TenantType='Main Tenant' ORDER BY f.ID";
+            string query =_DropDownListType.SelectedValue == "Main Tenant"? @"SELECT ID, Building+' '+Location+' - '+Title AS Title FROM Facility WHERE NOT ID IN (SELECT Facility FROM Tenant WHERE Active=1 AND TenantType='Main Tenant')ORDER BY ID": @"SELECT DISTINCT f.ID, f.Building+' '+f.Location+' - '+f.Title AS Title FROM Facility f INNER JOIN Tenant t ON t.Facility=f.ID WHERE t.Active=1 AND t.TenantType='Main Tenant'ORDER BY f.ID";
             Utility._BindDropdown(_DropDownListFacility, query, "ID", "Title", true);
         }
 

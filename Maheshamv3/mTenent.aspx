@@ -3,8 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" >
-    <div class="container-fluid contact py-5" style="background-color:white">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="container-fluid contact py-5" style="background-color: white">
         <div class="container py-5">
             <div class="pb-5">
                 <div class="bg-light rounded p-4 pb-0">
@@ -77,7 +77,18 @@
                                 <label>Meter Reading Start</label>
                             </div>
                         </div>
-
+                        <!-- Electric Unit Start -->
+                        <div class="col-lg-6">
+                            <div class="form-floating">
+                                <asp:DropDownList ID="_DropDownMeter" runat="server" Class="form-control">
+                                    <asp:ListItem Value="">Select Electric Unit</asp:ListItem>
+                                    <asp:ListItem Value="7">7</asp:ListItem>
+                                    <asp:ListItem Value="8">8</asp:ListItem>
+                                    <asp:ListItem Value="9">9</asp:ListItem>
+                                </asp:DropDownList>
+                                <label>Electric Unit Start</label>
+                            </div>
+                        </div>
                         <!-- Email -->
                         <div class="col-lg-6">
                             <div class="form-floating">
