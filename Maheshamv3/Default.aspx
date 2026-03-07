@@ -299,7 +299,4 @@
         </div>
     </div>
 </div>
-
-    </div>
-    <!-- Main Content End -->
 </asp:Content>

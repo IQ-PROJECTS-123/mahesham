@@ -3,13 +3,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server"></asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container-fluid py-5" style="background-color:white">
+    <div class="container-fluid py-5" style="background-color: white">
         <div class="container py-5">
             <div class="bg-light rounded p-4 pb-0">
                 <h2 class="display-5 mb-3">
                     <a href="Dashboard.aspx">Dashboard</a> - Payment Due
                 </h2>
-
                 <!-- Year and Month Selection -->
                 <div class="row g-3 mb-4">
                     <div class="col-lg-6">
@@ -48,9 +47,13 @@
                         </div>
                     </div>
                 </div>
+                <!-- PDF BUTTON -->
+
+                <asp:Button ID="btnDownloadPDF" runat="server" Text="Download PDF" Class="btn btn-danger mb-3" OnClick="btnDownloadPDF_Click"/>
 
                 <!-- Selected Month-Year -->
                 <h4 class="text-danger fw-bold mb-3">Pending Payments
+                   
                     <asp:Label ID="_LabelYearMonth" runat="server"></asp:Label>
                 </h4>
                 <div class="card shadow-sm border-success">
@@ -85,5 +88,5 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 </asp:Content>

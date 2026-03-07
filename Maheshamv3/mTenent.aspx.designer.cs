@@ -96,7 +96,6 @@ namespace Maheshamv3
         protected global::System.Web.UI.WebControls.TextBox _TextBoxMeter;
 
         /// <summary>
-<<<<<<< HEAD
         /// _DropDownMeter control.
         /// </summary>
         /// <remarks>
@@ -106,8 +105,6 @@ namespace Maheshamv3
         protected global::System.Web.UI.WebControls.DropDownList _DropDownMeter;
 
         /// <summary>
-=======
->>>>>>> 976b0600d4677ab932bcd13353fd843c56e07b6c
         /// _TextBoxEmail control.
         /// </summary>
         /// <remarks>

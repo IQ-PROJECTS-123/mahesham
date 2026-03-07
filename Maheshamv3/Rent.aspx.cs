@@ -30,8 +30,7 @@ namespace Maheshamv3
             int rYear = int.Parse(_DropDownListYear.SelectedValue);
             int rMonth = _DropDownListMonth.SelectedIndex + 1;
             //----Pending ----
-            string queryPending = $@"SELECT f.Building + ' ' + f.Title + ' ' + f.Location AS facility,t.Name,t.Mobile1,FORMAT(r.PeriodStart,'dd/MM/yyyy') AS PeriodStart,FORMAT(r.PeriodEnd,'dd/MM/yyyy') AS PeriodEnd,r.Amount,r.MeterStart,r.MeterEnd,(r.MeterEnd - r.MeterStart) AS Unit,(r.MeterEnd - r.MeterStart) * 7 AS Bill,r.AmountType,r.TotalAmount,r.ID,ISNULL(r.PaidAmount,0) AS PaidAmount FROM Rent r INNER JOIN Tenant t ON r.Tenant = t.ID INNER JOIN Facility f ON r.Facility = f.ID WHERE t.Active = 1 AND t.TenantType='Main Tenant' AND r.rYear = {rYear} AND r.rMonthNo = {rMonth} AND ISNULL(r.PaidAmount,0)=0 ORDER BY t.Name";
-            DataTable dtPending = Utility._GetDataTable(queryPending);
+            string queryPending = $@"SELECT f.Building + ' ' + f.Title + ' ' + f.Location AS facility,t.Name,t.Mobile1,FORMAT(r.PeriodStart,'dd/MM/yyyy') AS PeriodStart,FORMAT(r.PeriodEnd,'dd/MM/yyyy') AS PeriodEnd,r.Amount,r.MeterStart,r.MeterEnd,r.MeterEnd - r.MeterStart AS Unit,(r.MeterEnd - r.MeterStart) * ISNULL(r.eUnitCost, 0) AS Bill,r.AmountType,r.TotalAmount,r.ID,ISNULL(r.PaidAmount,0) AS PaidAmount FROM Rent r INNER JOIN Tenant t ON r.Tenant = t.ID INNER JOIN Facility f ON r.Facility = f.ID WHERE t.Active = 1 AND t.TenantType='Main Tenant'AND r.rYear = {rYear} AND r.rMonthNo = {rMonth}AND ISNULL(r.PaidAmount,0)=0 ORDER BY t.Name"; DataTable dtPending = Utility._GetDataTable(queryPending);
             _LiteralrPeding.Text = dtPending.Rows.Count.ToString();
             ListViewPending.DataSource = dtPending;
             ListViewPending.DataBind();
@@ -43,7 +42,7 @@ namespace Maheshamv3
             lblTotalAdvance.Text = $"₹ {totalAdv:N2}";
 
             //------- ADVANCE --------------
-            string queryAdvance = $@"SELECT f.Building + ' ' + f.Title + ' ' + f.Location AS facility,t.Name,t.Mobile1,FORMAT(r.PeriodStart,'dd/MM/yyyy') AS PeriodStart,FORMAT(r.PeriodEnd,'dd/MM/yyyy') AS PeriodEnd, r.Amount,r.MeterStart,r.MeterEnd,(r.MeterEnd - r.MeterStart) AS Unit, (r.MeterEnd - r.MeterStart) * 7 AS Bill,r.AmountType,r.TotalAmount,r.ID,r.PaidAmount FROM Rent r INNER JOIN Tenant t ON r.Tenant = t.ID INNER JOIN Facility f ON r.Facility = f.ID WHERE t.Active = 1 AND t.TenantType='Main Tenant' AND r.rYear = {rYear} AND r.rMonthNo = {rMonth} AND r.AmountType='Advance' ORDER BY r.PaidAmount, t.Name";
+            string queryAdvance = $@"SELECT f.Building + ' ' + f.Title + ' ' + f.Location AS facility,t.Name,t.Mobile1,FORMAT(r.PeriodStart,'dd/MM/yyyy') AS PeriodStart,FORMAT(r.PeriodEnd,'dd/MM/yyyy') AS PeriodEnd, r.Amount,r.MeterStart,r.MeterEnd, r.MeterEnd - r.MeterStart AS Unit,(r.MeterEnd - r.MeterStart) * ISNULL(r.eUnitCost, 0) AS Bill,r.AmountType,r.TotalAmount,r.ID,r.PaidAmount FROM Rent r INNER JOIN Tenant t ON r.Tenant = t.ID INNER JOIN Facility f ON r.Facility = f.ID WHERE t.Active = 1 AND t.TenantType='Main Tenant' AND r.rYear = {rYear} AND r.rMonthNo = {rMonth} AND r.AmountType='Advance' ORDER BY r.PaidAmount, t.Name";
             DataTable _dtAvnace = Utility._GetDataTable(queryAdvance);
             _LiteralrAdvace.Text = _dtAvnace.Rows.Count.ToString();
             ListViewAdvance.DataSource = _dtAvnace;
