@@ -75,7 +75,7 @@ namespace Maheshamv3
             //lblTotalscanandcash.Text = $"₹{totalPaidcashandscan:N2}";
 
             //------ RENT ------
-            string queryRent = $@"SELECT f.Building + ' ' + f.Title + ' ' + f.Location AS Facility,t.Name,t.Mobile1,FORMAT(r.PeriodStart,'dd/MM/yyyy') AS PeriodStart, FORMAT(r.PeriodEnd,'dd/MM/yyyy') AS PeriodEnd, r.Amount, r.MeterStart, r.MeterEnd, (r.MeterEnd - r.MeterStart) AS Unit,(r.MeterEnd - r.MeterStart) * 7 AS Bill,r.AmountType,r.TotalAmount, r.ID,r.PaidAmount FROM Rent r INNER JOIN Tenant t ON r.Tenant = t.ID INNER JOIN Facility f ON r.Facility = f.ID WHERE t.Active = 1 AND t.TenantType = 'Main Tenant' AND r.Active = 1 AND r.rYear = {rYear} AND r.rMonthNo = {rMonth} AND r.AmountType = 'Rental'AND ISNULL(r.PaidAmount,0) > 0ORDER BY t.Name";
+            string queryRent = $@"SELECT f.Building + ' ' + f.Title + ' ' + f.Location AS Facility,t.Name,t.Mobile1,FORMAT(r.PeriodStart,'dd/MM/yyyy') AS PeriodStart, FORMAT(r.PeriodEnd,'dd/MM/yyyy') AS PeriodEnd, r.Amount, r.MeterStart, r.MeterEnd, (r.MeterEnd - r.MeterStart) AS Unit, (r.MeterEnd - r.MeterStart) * r.eUnitCost AS Bill,r.AmountType,r.TotalAmount, r.ID,r.PaidAmount FROM Rent r INNER JOIN Tenant t ON r.Tenant = t.ID INNER JOIN Facility f ON r.Facility = f.ID WHERE t.Active = 1 AND t.TenantType = 'Main Tenant' AND r.Active = 1 AND r.rYear = {rYear} AND r.rMonthNo = {rMonth} AND r.AmountType = 'Rental'AND ISNULL(r.PaidAmount,0) > 0ORDER BY t.Name";
             DataTable _dtRent = Utility._GetDataTable(queryRent);
 
             //---count---
@@ -86,6 +86,11 @@ namespace Maheshamv3
             decimal pendingTotal = 0;
             foreach (DataRow row in dtPending.Rows) pendingTotal += Convert.ToDecimal(row["TotalAmount"]);
             lblTotalPending.Text = $"₹ {pendingTotal:N2}";
+
+            //--------- TOTAL DUE ----------
+            string queryTotalDue = $@"SELECT ISNULL(SUM(Due),0) AS TotalDue FROM Rent WHERE Active = 1 AND rYear = {rYear} AND rMonthNo = {rMonth} AND AmountType = 'Rental'";
+            decimal totalDue = Convert.ToDecimal(Utility._GetDataTable(queryTotalDue).Rows[0]["TotalDue"]);
+            _lblTotalDue.Text = $"₹{totalDue:N2}";
 
             //----- VACANT ------
             string queryVacant = @"SELECT NULL AS Name,f.Building + ' ' + f.Title + ' ' + f.Location AS facility, NULL AS Mobile1,NULL AS PeriodStart,NULL AS PeriodEnd,NULL AS Amount,NULL AS MeterStart,NULL AS MeterEnd,NULL AS Unit,NULL AS Bill,NULL AS AmountType,NULL AS TotalAmount,NULL AS ID,NULL AS PaidAmount FROM Facility f WHERE f.Active = 1 AND f.ID NOT IN (SELECT DISTINCT Facility FROM Tenant WHERE Active=1) ORDER BY f.Building,f.Title";

@@ -9,7 +9,6 @@
                 <h2 class="display-5 mb-3">
                     <a href="Dashboard.aspx">Dashboard</a> - Payment Due
                 </h2>
-                <!-- Year and Month Selection -->
                 <div class="row g-3 mb-4">
                     <div class="col-lg-6">
                         <div class="form-floating">

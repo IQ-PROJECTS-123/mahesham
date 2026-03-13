@@ -119,7 +119,7 @@ namespace Maheshamv3
                         new SqlParameter("@Maintenance", maintenance),
                         new SqlParameter("@Amount", rentWithMaintenance),
                         new SqlParameter("@TotalAmount", totalAmount),
-                        new SqlParameter("@eUnitCost", unitCost) // Resolved: Added eUnitCost param
+                        new SqlParameter("@eUnitCost", unitCost) 
                     );
                 }
                 else
@@ -137,7 +137,7 @@ namespace Maheshamv3
                         new SqlParameter("@rMonth", _DropDownListMonth.SelectedValue),
                         new SqlParameter("@rYear", _DropDownListYear.SelectedValue),
                         new SqlParameter("@rMonthNo", _DropDownListMonth.SelectedIndex + 1),
-                        new SqlParameter("@eUnitCost", unitCost), // Resolved: Added eUnitCost param
+                        new SqlParameter("@eUnitCost", unitCost), 
                         new SqlParameter("@Maintenance", maintenance),
                         new SqlParameter("@TotalAmount", totalAmount)
                     );

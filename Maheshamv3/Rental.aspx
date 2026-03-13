@@ -156,6 +156,7 @@
                         <asp:BoundField DataField="Name" HeaderText="Name" />
                         <asp:BoundField DataField="facility" HeaderText="ROOM" />
                         <asp:BoundField DataField="Mobile1" HeaderText="Mobile" />
+                        <asp:BoundField DataField="Maintenance" HeaderText="Maintenance" />
                         <asp:BoundField DataField="PeriodStart" HeaderText="Period Start" />
                         <asp:BoundField DataField="PeriodEnd" HeaderText="Period End" />
                         <asp:BoundField DataField="Amount" HeaderText="Amount" />
@@ -166,6 +167,7 @@
                         <asp:BoundField DataField="Bill" HeaderText="Bill" />
                         <asp:BoundField DataField="TotalAmount" HeaderText="Total Amount" />
                         <asp:BoundField DataField="PaidAmount" HeaderText="Paid" />
+                        <asp:BoundField DataField="Due" HeaderText="Due" />
                         <asp:TemplateField HeaderText="Action">
                             <ItemTemplate>
                                 <asp:ImageButton ID="_ImageButtonView" runat="server" ImageUrl="~/img/edit.png"

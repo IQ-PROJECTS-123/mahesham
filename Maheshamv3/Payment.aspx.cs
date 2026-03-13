@@ -17,30 +17,8 @@ namespace Maheshamv3
 
         private void LoadPaymentData(string rentId)
         {
-            // Updated Query: Now uses 'eUnitCost' for Bill calculation instead of hardcoded 7
-            string query = @"SELECT 
-                                f.Building + ' ' + f.Title + ' ' + f.Location AS facility,
-                                t.Name, 
-                                t.Mobile1,
-                                FORMAT(r.PeriodStart,'dd/MM/yyyy') AS PeriodStart,
-                                FORMAT(r.PeriodEnd,'dd/MM/yyyy') AS PeriodEnd,
-                                FORMAT(r.PaidOn,'yyyy-MM-dd') AS PaymentDate,
-                                r.rMonth, 
-                                r.rYear, 
-                                r.Amount, 
-                                r.MeterStart, 
-                                r.MeterEnd,
-                                r.MeterEnd - r.MeterStart AS Unit,
-                                (r.MeterEnd - r.MeterStart) * ISNULL(r.eUnitCost, 0) AS Bill, 
-                                r.TotalAmount,
-                                r.Due 
-                             FROM Rent r 
-                             INNER JOIN Tenant t ON r.Tenant = t.ID 
-                             INNER JOIN Facility f ON r.Facility = f.ID 
-                             WHERE r.ID=" + rentId;
-
+            string query = @"SELECT f.Building + ' ' + f.Title + ' ' + f.Location AS facility,t.Name,t.Mobile1,FORMAT(r.PeriodStart,'dd/MM/yyyy') AS PeriodStart,FORMAT(r.PeriodEnd,'dd/MM/yyyy') AS PeriodEnd,FORMAT(r.PaidOn,'yyyy-MM-dd') AS PaymentDate,r.rMonth,r.rYear,r.Amount,r.MeterStart,r.MeterEnd,r.MeterEnd - r.MeterStart AS Unit,(r.MeterEnd - r.MeterStart) * ISNULL(r.eUnitCost, 0) AS Bill,r.TotalAmount,r.Due FROM Rent r INNER JOIN Tenant t ON r.Tenant = t.ID INNER JOIN Facility f ON r.Facility = f.ID WHERE r.ID=" + rentId;
             DataTable dt = Utility._GetDataTable(query);
-
             if (dt.Rows.Count > 0)
             {
                 DataRow row = dt.Rows[0];
@@ -48,10 +26,7 @@ namespace Maheshamv3
                 _LabelName.Text = row["Name"].ToString();
                 _LabelRoom.Text = row["facility"].ToString();
                 _TextBoxAmount.Text = _LabelTotal.Text = row["TotalAmount"].ToString();
-
-                // Set loaded Payment Date or default today's date
                 _TextBoxStartDate.Text = !string.IsNullOrEmpty(row["PaymentDate"].ToString()) ? row["PaymentDate"].ToString() : DateTime.Now.ToString("yyyy-MM-dd");
-
                 ViewState["PeriodStart"] = row["PeriodStart"].ToString();
                 ViewState["PeriodEnd"] = row["PeriodEnd"].ToString();
                 ViewState["MeterStart"] = row["MeterStart"].ToString();
@@ -59,7 +34,6 @@ namespace Maheshamv3
                 ViewState["Unit"] = row["Unit"].ToString();
                 ViewState["Bill"] = row["Bill"].ToString();
                 ViewState["PrevDue"] = row["Due"] != DBNull.Value ? row["Due"].ToString() : "0";
-
                 _ButtonSubmit.Visible = true;
             }
         }

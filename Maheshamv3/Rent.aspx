@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Rent.aspx.cs" Inherits="Maheshamv3.Rent" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         body {
@@ -157,6 +158,7 @@
                     </div>
                 </div>
             </div>
+
             <%--Pending--%>
             <asp:Panel ID="PanelPending" runat="server" Visible="false">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -248,20 +250,28 @@
                     </ItemTemplate>
                 </asp:ListView>
             </asp:Panel>
-            <%---------    Rent   -------%>
+            <%-----Rent-----%>
             <asp:Panel ID="PanelRent" runat="server" Visible="false">
-                <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h4 class="fw-bold text-primary mb-0">Received Payment (<asp:Literal runat="server" ID="_LiteralrCount"></asp:Literal>)</h4>
-                    <span class="badge bg-dark px-4 py-2 fs-6">Expected :
-                     <asp:Label runat="server" ID="lblTotalExpected"></asp:Label>
+
+                    <span class="badge bg-primary px-4 py-2 fs-6">Expected :
+                    <asp:Label runat="server" ID="lblTotalExpected"></asp:Label>
                     </span>
-                    <span class="badge bg-dark px-4 py-2 fs-6">Total cash:
-                     <asp:Label runat="server" ID="lblTotalcash"></asp:Label>
+
+                    <span class="badge bg-success px-4 py-2 fs-6">Total Cash :
+                    <asp:Label runat="server" ID="lblTotalcash"></asp:Label>
                     </span>
-                    <span class="badge bg-dark px-4 py-2 fs-6">Total scan:
+
+                    <span class="badge bg-info text-dark px-4 py-2 fs-6">Total Scan :
                     <asp:Label runat="server" ID="lblTotalscan"></asp:Label>
                     </span>
-                    <span class="badge bg-dark px-4 py-2 fs-6">Total Rent:
+
+                    <span class="badge bg-danger px-4 py-2 fs-6">Total Due :
+                      <asp:Label ID="_lblTotalDue" runat="server"></asp:Label>
+                    </span>
+
+                    <span class="badge bg-warning text-dark px-4 py-2 fs-6">Total Rent :
                      <asp:Label ID="lblTotalPaid" runat="server"></asp:Label>
                     </span>
                 </div>

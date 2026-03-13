@@ -24,12 +24,8 @@ namespace Maheshamv3
 
         protected void _Bind()
         {
-            // Prevent execution if no facility is loaded/selected yet
-            if (string.IsNullOrEmpty(_DropDownListFacility.SelectedValue))
-                return;
-
-            string query = string.Format(@"SELECT f.Building + ' ' + f.Title + ' ' + f.Location AS Facility,t.Name,t.Mobile1,FORMAT(r.PeriodStart,'dd/MM/yyyy') AS PeriodStart,FORMAT(r.PeriodEnd,'dd/MM/yyyy') AS PeriodEnd,r.Amount,r.MeterStart,r.MeterEnd,r.eUnitCost,(r.MeterEnd - r.MeterStart) AS Unit,(r.MeterEnd - r.MeterStart) * r.eUnitCost AS Bill,r.TotalAmount,r.Maintenance,r.PaidAmount,r.PaymentType,FORMAT(r.PaidOn,'dd-MMM-yy') AS PaidOn,r.Due,r.ID,r.rMonth,r.AmountType FROM Rent r INNER JOIN Tenant t ON r.Tenant = t.ID INNER JOIN Facility f ON r.Facility = f.ID WHERE t.Active = 1 AND t.TenantType = 'Main Tenant' AND r.rYear = {0} AND r.Facility = {1}", _DropDownListYear.SelectedValue,_DropDownListFacility.SelectedValue);
-
+            if (string.IsNullOrEmpty(_DropDownListFacility.SelectedValue))return;
+            string query = string.Format(@"SELECT f.Building + ' ' + f.Title + ' ' + f.Location AS Facility,t.Name,t.Mobile1,FORMAT(r.PeriodStart,'dd/MM/yyyy') AS PeriodStart,FORMAT(r.PeriodEnd,'dd/MM/yyyy') AS PeriodEnd,r.Amount,r.MeterStart,r.MeterEnd,r.eUnitCost,(r.MeterEnd - r.MeterStart) AS Unit,(r.MeterEnd - r.MeterStart) * r.eUnitCost AS Bill,r.TotalAmount,r.Maintenance,ISNULL(r.PaidAmount,0) AS PaidAmount,ISNULL(r.Due,0) AS Due,CASE WHEN ISNULL(r.Due,0)=0 THEN 'PAID' ELSE 'PENDING' END AS Status,r.PaymentType,FORMAT(r.PaidOn,'dd-MMM-yy') AS PaidOn,r.ID,r.rMonth,r.AmountType FROM Rent r INNER JOIN Tenant t ON r.Tenant = t.ID INNER JOIN Facility f ON r.Facility = f.ID WHERE t.Active = 1 AND r.Active = 1 AND t.TenantType = 'Main Tenant'AND r.rYear = {0}AND r.Facility = {1}ORDER BY r.rMonthNo", _DropDownListYear.SelectedValue, _DropDownListFacility.SelectedValue);
             Utility._BindGridView(GridView2, query);
         }
 
